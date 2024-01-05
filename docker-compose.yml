@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  haproxy:
+    image: haproxy:latest
+    container_name: haproxy
+    restart: always
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - "80:80"
+      - "81:81"
+  backend1:
+    container_name: backend1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    init: true
+    ports:
+      - "8841:8840"
+  backend2:
+    container_name: backend2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    init: true
+    ports:
+      - "8842:8840"
+
+
+
